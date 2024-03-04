@@ -1,18 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-int mod = 1000000007;
 
-int modpower(int a, int b){
-    if(b==0) {
-        return 1;
-    }
-    long long value = modpower(a, b/2);
-    value = (value * value)%mod;
-    if(b%2 == 1){
-        value = (value*a)%mod;
-    }
-    return value;
-}
 
 int main() {
 	#ifndef ONLINE_JUDGE
@@ -20,12 +8,29 @@ int main() {
 	freopen("output1.txt", "w", stdout);
 	#endif
 
-    int n;
-    cin>>n;
-    while(n--){
-        int a, b;
-        cin>>a>>b;
-        cout<<modpower(a, b)<<endl;
+    int t;
+    cin>>t;
+    
+    while(t--){
+        int n;
+        cin>>n;
+        unordered_map<int, int> mp;
+        for(int i=2; i*i<=n; i++){
+            while(n%i == 0){
+                n /= i;
+                mp[i]++;
+            }
+        }
+        if(n > 1){
+            mp[n]++;
+        }
+        int count = 1;
+        for(auto it: mp){
+            count *= (it.second + 1);
+        }
+
+        cout<<count<<endl;
     }
-    return 0;
+
+    return 0; 
 }

@@ -3,33 +3,46 @@ using namespace std;
 
 
 int main() {
-	#ifndef ONLINE_JUDGE
-	freopen("input1.txt", "r", stdin);
-	freopen("output1.txt", "w", stdout);
-	#endif
+	// #ifndef ONLINE_JUDGE
+	// freopen("input1.txt", "r", stdin);
+	// freopen("output1.txt", "w", stdout);
+	// #endif
 
-    int t;
-    cin>>t;
-    
-    while(t--){
-        int n;
-        cin>>n;
-        unordered_map<int, int> mp;
-        for(int i=2; i*i<=n; i++){
-            while(n%i == 0){
-                n /= i;
-                mp[i]++;
+    int n;
+    cin>>n;
+
+    int sum = 0;
+    int zeros = 0;
+    int fives = 0;
+    int stopFives = 0;
+    for(int i=0; i<n; i++){
+        int a;
+        cin>>a;
+
+        if(a == 5){
+            sum+=5;
+            fives++;
+            if(sum % 9 == 0){
+                stopFives += fives;
+                fives = 0;
             }
+        } else {
+            zeros++;
         }
-        if(n > 1){
-            mp[n]++;
+    }
+    
+    if(zeros > 0){
+        zeros--;
+        int ans = 0;
+        while(stopFives--){
+            ans = ans*10 + 5;
         }
-        int count = 1;
-        for(auto it: mp){
-            count *= (it.second + 1);
+        while(zeros--){
+            ans = ans*10;
         }
-
-        cout<<count<<endl;
+        cout<<ans<<endl;
+    } else {
+        cout<<0<<endl;
     }
 
     return 0; 

@@ -12,7 +12,6 @@ int powerOfPower(int a, int b){
     return value;
 }
 
-
 int main() {
 
     int n;

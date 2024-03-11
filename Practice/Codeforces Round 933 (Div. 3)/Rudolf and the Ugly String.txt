@@ -1,0 +1,120 @@
+Rudolf and the Ugly String
+
+
+Rudolf has a string 𝑠 of length 𝑛. Rudolf considers the string 𝑠 to be ugly if it contains the substring† "pie" or the substring "map", otherwise the string 𝑠 will be considered beautiful.
+
+For example, "ppiee", "mmap", "dfpiefghmap" are ugly strings, while "mathp", "ppiiee" are beautiful strings.
+
+Rudolf wants to shorten the string 𝑠 by removing some characters to make it beautiful.
+
+The main character doesn't like to strain, so he asks you to make the string beautiful by removing the minimum number of characters. He can remove characters from any positions in the string (not just from the beginning or end of the string).
+
+† String 𝑎 is a substring of 𝑏 if there exists a consecutive segment of characters in string 𝑏 equal to 𝑎.
+
+Input
+The first line contains a single integer 𝑡 (1≤𝑡≤104) — the number of test cases. The descriptions of the test cases follow.
+
+The first line of each test case contains a single integer 𝑛 (1≤𝑛≤106) — the length of the string 𝑠.
+
+The next line of each test case contains the string 𝑠 of length 𝑛. The string 𝑠 consists of lowercase Latin letters.
+
+The sum of 𝑛 over all test cases does not exceed 106.
+
+Output
+For each test case, output a single integer — the minimum number of characters that need to be deleted to make the string 𝑠 beautiful. If the string is initially beautiful, then output 0.
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> computeLPSArray(string pat, int M)
+{
+    vector<int> lps(M);
+    int len = 0;
+    lps[0] = 0;
+ 
+    int i = 1;
+    while (i < M) {
+        if (pat[i] == pat[len]) {
+            len++;
+            lps[i] = len;
+            i++;
+        }
+        else 
+        {
+            if (len != 0) {
+                len = lps[len - 1];
+            }
+            {
+                lps[i] = 0;
+                i++;
+            }
+        }
+    }
+    return lps;
+}
+
+vector<int> KMPSearch(string pat, string txt){
+    int M = pat.size();
+    int N = txt.size();
+    vector<int> ans(N, 0);
+ 
+    vector<int> lps = computeLPSArray(pat, M);
+ 
+    int i = 0;
+    int j = 0; 
+    while ((N - i) >= (M - j)) {
+        if (pat[j] == txt[i]) {
+            j++;
+            i++;
+        }
+ 
+        if (j == M) {
+            ans[i-j] = 1;
+            j = lps[j - 1];
+        }
+ 
+        else if (i < N && pat[j] != txt[i]) {
+            if (j != 0)
+                j = lps[j - 1];
+            else
+                i = i + 1;
+        }
+    }
+    return ans;
+}
+
+int main() {
+
+    int t;
+    cin>>t;
+    while(t--){
+        string s;
+        int n;
+        cin>>n;
+        string pie = "pie";
+        string map = "map";
+        cin>>s;
+        vector<int> mapM = KMPSearch(map, s);
+        vector<int> pieM = KMPSearch(pie, s);
+
+        int ans = 0; 
+        for(int i=0; i<n; i++){
+            if(mapM[i] == 1){
+                ans++;
+            }
+            if(pieM[i] == 1){
+                if((i-2)>=0 && mapM[i-2] == 1){
+                    continue;
+                } else {
+                    ans++;
+                }
+            }
+
+        }
+        cout<<ans<<endl;
+    }
+    return 0;
+    
+}

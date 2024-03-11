@@ -1,13 +1,19 @@
+Rudolf and the Ball Game
+
+Rudolf and Bernard decided to play a game with their friends. 𝑛 people stand in a circle and start throwing a ball to each other. They are numbered from 1 to 𝑛 in the clockwise order.
+
+Let's call a transition a movement of the ball from one player to his neighbor. The transition can be made clockwise or counterclockwise.
+
+Let's call the clockwise (counterclockwise) distance from player 𝑦1 to player 𝑦2 the number of transitions clockwise (counterclockwise) that need to be made to move from player 𝑦1 to player 𝑦2. For example, if 𝑛=7 then the clockwise distance from 2 to 5 is 3, and the counterclockwise distance from 2 to 5 is 4.
+
+Initially, the ball is with the player number 𝑥 (players are numbered clockwise). On the 𝑖-th move the person with the ball throws it at a distance of 𝑟𝑖 (1≤𝑟𝑖≤𝑛−1) clockwise or counterclockwise. For example, if there are 7 players, and the 2nd player, after receiving the ball, throws it a distance of 5, then the ball will be caught by either the 7th player (throwing clockwise) or the 4th player (throwing counterclockwise). An illustration of this example is shown below.
+
+
 #include <bits/stdc++.h>
 using namespace std;
 
 
 int main() {
-	// #ifndef ONLINE_JUDGE
-	// freopen("input1.txt", "r", stdin);
-	// freopen("output1.txt", "w", stdout);
-	// #endif
-
     int t;
     cin>>t;
     while(t--){

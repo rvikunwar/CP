@@ -1,0 +1,71 @@
+Comparing Strings
+
+
+Some dwarves that are finishing the StUDY (State University for Dwarven Youngsters) Bachelor courses, have been told "no genome, no degree". That means that all dwarves should write a thesis on genome. Dwarven genome is far from simple. It is represented by a string that consists of lowercase Latin letters.
+
+Dwarf Misha has already chosen the subject for his thesis: determining by two dwarven genomes, whether they belong to the same race. Two dwarves belong to the same race if we can swap two characters in the first dwarf's genome and get the second dwarf's genome as a result. Help Dwarf Misha and find out whether two gnomes belong to the same race or not.
+
+Input
+The first line contains the first dwarf's genome: a non-empty string, consisting of lowercase Latin letters.
+
+The second line contains the second dwarf's genome: a non-empty string, consisting of lowercase Latin letters.
+
+The number of letters in each genome doesn't exceed 105. It is guaranteed that the strings that correspond to the genomes are different. The given genomes may have different length.
+
+Output
+Print "YES", if the dwarves belong to the same race. Otherwise, print "NO".
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int main() {
+
+    vector<int> vc1(26, 0);
+    vector<int> vc2(26, 0);
+
+    string s1, s2;
+    cin>>s1>>s2;
+
+    if(s1.size() != s2.size()){
+        cout<<"NO"<<endl;
+        return 0;
+    }
+
+    for(int i=0; i<s1.size(); i++){
+        int ch1 = s1[i] - 'a';
+        int ch2 = s2[i] - 'a';
+        vc1[ch1]++;
+        vc2[ch2]++;
+    }
+
+    int flag = 1;
+    for(int i=0; i<26; i++){
+        if(vc1[i] != vc2[i]){
+            flag = 0;
+            break;
+        }
+    }
+
+    if(flag == 0){
+        cout<<"NO"<<endl;
+    } else {
+        int count = 0 ;
+        for(int i=0; i<s1.size(); i++){
+            int diff = s1[i] - s2[i];
+            if(diff != 0){
+                count++;
+            }
+        }
+        if(count == 2){
+            cout<<"YES"<<endl;
+        } else {
+            cout<<"NO"<<endl;
+        }
+    }
+
+
+    return 0;
+}

@@ -1,0 +1,69 @@
+Maximum Sum
+
+You have an array 𝑎 of 𝑛 integers.
+
+You perform exactly 𝑘 operations on it. In one operation, you select any contiguous subarray of the array 𝑎 (possibly empty) and insert the sum of this subarray anywhere in the array.
+
+Your task is to find the maximum possible sum of the array after 𝑘 such operations.
+
+As this number can be very large, output the answer modulo 109+7.
+
+Reminder: the remainder of a number 𝑥 modulo 𝑝 is the smallest non-negative 𝑦 such that there exists an integer 𝑞 and 𝑥=𝑝⋅𝑞+𝑦.
+
+Input
+Each test consists of several test cases. The first line contains a single integer 𝑡 (1≤𝑡≤104) — the number of test cases. Then follows the description of the test cases.
+
+The first line of each test case contains two integers 𝑛 and 𝑘 (1≤𝑛,𝑘≤2⋅105) — the length of the array 𝑎 and the number of operations, respectively.
+
+The second line of each test case contains 𝑛 integers 𝑎1,𝑎2,…,𝑎𝑛 (−109≤𝑎𝑖≤109) — the array 𝑎 itself.
+
+It is guaranteed that the sum of the values of 𝑛 and 𝑘 for all test cases does not exceed 2⋅105.
+
+Output
+For each test, output a single integer — the maximum sum of the array that can be obtained after 𝑘 operations modulo 109+7.
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int mod = 1000000007;
+
+int main() {
+
+    int t;
+    cin>>t;
+
+    while(t--){
+        int n, k;
+        cin>>n>>k;
+        vector<int> vc(n, 0);
+
+        for(int i=0; i<n; i++){
+            cin>>vc[i];
+        }
+
+        long long sum = 0;
+        long long maxSum = 0;
+        long long s = 0;
+        for(int i=0; i<n; i++){
+            s += vc[i];
+            sum += vc[i];
+            if(sum < 0){
+                sum = 0;
+            }
+            maxSum = max(maxSum, sum);
+        }
+        s -= maxSum;
+        long long ans = maxSum;
+
+
+        for(int i=0; i<k; i++){
+            ans = (ans * 2);
+            ans = ans%mod;
+        }
+        ans = (s + ans);
+        ans = (mod + (ans % mod)) % mod;
+        cout<<ans<<endl;
+        
+    }
+    
+}

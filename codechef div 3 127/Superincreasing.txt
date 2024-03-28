@@ -1,0 +1,28 @@
+Superincreasing
+https://www.codechef.com/problems/SUPINC?tab=statement
+
+
+#include <bits/stdc++.h>
+using namespace std;
+int mod = 1000000000;
+int main() {
+	// your code goes here
+    int t;
+    cin>>t;
+    
+    while(t--){
+        int n, k, x;
+        cin>>n>>k>>x;
+        long long val = 1 << (k-1);
+       if(k >= 31){
+           cout<<"NO"<<endl;
+           continue;
+       }
+        if(x > val-1){
+            cout<<"YES"<<endl;
+        } else {
+            cout<<"NO"<<endl;
+        }
+    }
+    return 0;
+}

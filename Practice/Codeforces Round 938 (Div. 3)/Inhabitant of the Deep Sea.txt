@@ -1,0 +1,101 @@
+Inhabitant of the Deep Sea
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+𝑛 ships set out to explore the depths of the ocean. The ships are numbered from 1 to 𝑛 and follow each other in ascending order; the 𝑖-th ship has a durability of 𝑎𝑖.
+
+The Kraken attacked the ships 𝑘 times in a specific order. First, it attacks the first of the ships, then the last, then the first again, and so on.
+
+Each attack by the Kraken reduces the durability of the ship by 1. When the durability of the ship drops to 0, it sinks and is no longer subjected to attacks (thus the ship ceases to be the first or last, and the Kraken only attacks the ships that have not yet sunk). If all the ships have sunk, the Kraken has nothing to attack and it swims away.
+
+For example, if 𝑛=4, 𝑘=5, and 𝑎=[1,2,4,3], the following will happen:
+
+The Kraken attacks the first ship, its durability becomes zero and now 𝑎=[2,4,3];
+The Kraken attacks the last ship, now 𝑎=[2,4,2];
+The Kraken attacks the first ship, now 𝑎=[1,4,2];
+The Kraken attacks the last ship, now 𝑎=[1,4,1];
+The Kraken attacks the first ship, its durability becomes zero and now 𝑎=[4,1].
+How many ships were sunk after the Kraken's attack?
+
+Input
+The first line contains an integer 𝑡 (1≤𝑡≤104) — the number of test cases.
+
+The first line of each test case contains two integers 𝑛 and 𝑘 (1≤𝑛≤2⋅105, 1≤𝑘≤1015) — the number of ships and how many times the Kraken will attack the ships.
+
+The second line of each test case contains 𝑛 integers 𝑎1,𝑎2,…,𝑎𝑛 (1≤𝑎𝑖≤109) — the durability of the ships.
+
+It is guaranteed that the sum of 𝑛 for all test cases does not exceed 2⋅105.
+
+Output
+For each test case, output the number of ships sunk by the Kraken on a separate line.
+
+
+int main() {
+
+    int t;
+    cin>>t;
+
+    while(t--){
+        long long n, k;
+        cin>>n>>k;
+
+        vector<int> vc(n, 0);
+
+        for(int i=0; i<n; i++){
+            cin>>vc[i];
+        }
+
+        int ans = 0;
+        int carry = 0;
+        int i = 0, j = n-1;
+
+        while(k > 0 && i < j){
+            if(carry == 1){
+                vc[j]--;
+                carry = 0;
+                if(vc[j] == 0){
+                    ans++;
+                    j--;
+                }
+                k--;
+            } else {
+                if(vc[i] <= vc[j]){
+                    int points = vc[i] + vc[i] - 1;
+                    carry = 1;
+                    if(points <= k) {
+                        k -= points;
+                        vc[j] -= (vc[i] - 1);
+                        i++;
+                        ans++;
+                    } else {
+                        break;
+                    }
+
+                } else {
+                    int points = vc[j] + vc[j];
+
+                    if(points <= k) {
+                        k -= points;
+                        vc[i] -= vc[j];
+                        j--;
+                        ans++;
+                    } else {
+                        break;
+                    }
+                }
+            }
+        }
+        if(i == j){
+            if(vc[i] <= k){
+                ans++;
+            }
+        }
+
+        cout<<ans<<endl;
+
+    }
+    return 0;
+    
+}

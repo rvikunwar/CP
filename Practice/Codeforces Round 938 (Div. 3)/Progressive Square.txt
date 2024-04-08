@@ -1,0 +1,104 @@
+Progressive Square
+
+#include <bits/stdc++.h>
+using namespace std;
+
+A progressive square of size 𝑛 is an 𝑛×𝑛 matrix. Maxim chooses three integers 𝑎1,1, 𝑐, and 𝑑 and constructs a progressive square according to the following rules:
+
+𝑎𝑖+1,𝑗=𝑎𝑖,𝑗+𝑐
+
+𝑎𝑖,𝑗+1=𝑎𝑖,𝑗+𝑑
+
+For example, if 𝑛=3, 𝑎1,1=1, 𝑐=2, and 𝑑=3, then the progressive square looks as follows:
+
+⎛⎝⎜⎜1354687911⎞⎠⎟⎟
+
+Last month Maxim constructed a progressive square and remembered the values of 𝑛, 𝑐, and 𝑑. Recently, he found an array 𝑏 of 𝑛2 integers in random order and wants to make sure that these elements are the elements of that specific square.
+
+It can be shown that for any values of 𝑛, 𝑎1,1, 𝑐, and 𝑑, there exists exactly one progressive square that satisfies all the rules.
+
+Input
+The first line contains an integer 𝑡 (1≤𝑡≤104) — the number of test cases.
+
+The first line of each test case contains three integers 𝑛, 𝑐, and 𝑑 (2≤𝑛≤500, 1≤𝑐,𝑑≤106) — the size of the square and the values of 𝑐 and 𝑑 as described in the statement.
+
+The second line of each test case contains 𝑛⋅𝑛 integers 𝑏1,𝑏2,…,𝑏𝑛⋅𝑛 (1≤𝑏𝑖≤109) — the elements found by Maxim.
+
+It is guaranteed that the sum of 𝑛2 over all test cases does not exceed 25⋅104.
+
+Output
+For each test case, output "YES" in a separate line if a progressive square for the given 𝑛, 𝑐, and 𝑑 can be constructed from the array elements 𝑎, otherwise output "NO".
+
+You can output each letter in any case (lowercase or uppercase). For example, the strings "yEs", "yes", "Yes", and "YES" will be accepted as a positive answer.
+
+
+int main() {
+    int t;
+    cin>>t;
+
+    while(t--){
+        int n, c, d;
+        cin>>n>>c>>d;
+        unordered_map<int, int> mp;
+        int val;
+        int sm = INT_MAX;
+        vector<vector<int>> vc(n, vector<int> (n, 0));
+
+        for(int i=0; i<n*n; i++){
+            cin>>val;
+            mp[val]++;
+            sm = min(sm, val);
+        }
+        mp[sm] -= 1;
+        vc[0][0] = sm;
+        int ans = 1;
+
+        for(int i=1; i<n; i++){
+            val = vc[0][i-1] + c;
+            if(mp.find(val) == mp.end() || mp[val] == 0){
+                ans = 0;
+                break;
+            }
+            vc[0][i] = val;
+            mp[val] -= 1;
+
+            val = vc[i-1][0] + d;
+            if(mp.find(val) == mp.end() || mp[val] == 0){
+                ans = 0;
+                break;
+            }
+            vc[i][0] = val;
+            mp[val] -= 1;        
+        }
+
+        if(ans == 0){
+            cout<<"NO"<<endl;
+            continue;
+        }
+
+        for(int i=1; i<n; i++){
+            for(int j=1; j<n; j++){
+                if(vc[i-1][j] + d == vc[i][j-1] + c){
+                    val = vc[i-1][j] + d;
+                    if(mp.find(val) == mp.end() || mp[val] == 0){
+                        ans = 0;
+                        break;
+                    }
+                    mp[val] -= 1;
+                    vc[i][j] = val;
+                } else {
+                    ans = 0;
+                    break;
+                }
+            }
+            if(ans == 0){
+                break;
+            }
+        }
+        cout<<((ans == 1) ?"YES": "NO")<<endl; 
+
+
+    }
+    return 0;
+    
+}

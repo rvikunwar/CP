@@ -1,0 +1,44 @@
+Yogurt Sale
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+The price of one yogurt at the "Vosmiorochka" store is 𝑎 burles, but there is a promotion where you can buy two yogurts for 𝑏 burles.
+
+Maxim needs to buy exactly 𝑛 yogurts. When buying two yogurts, he can choose to buy them at the regular price or at the promotion price.
+
+What is the minimum amount of burles Maxim should spend to buy 𝑛 yogurts?
+
+Input
+The first line contains a single integer 𝑡 (1≤𝑡≤104) — the number of test cases.
+
+The first and only line of each test case contains three integers 𝑛, 𝑎, and 𝑏 (1≤𝑛≤100, 1≤𝑎,𝑏≤30) — the number of yogurts Maxim wants to buy, the price for one yogurt, and the price for two yogurts on promotion.
+
+Output
+For each test case, print in a separate line the minimum cost of buying 𝑛 yogurts at "Vosmiorochka".
+
+
+int main() {
+
+    int t;
+    cin>>t;
+
+    while(t--){
+
+        int n;
+        int a, b;
+
+        cin>>n>>a>>b;
+        int ans;
+
+        if(n%2 == 0){
+            ans = min(b * (n/2), a*n);
+        } else {
+            ans = min(b * (n/2) + a, a*n);
+        }
+        cout<<ans<<endl;
+    }
+    return 0;
+    
+}

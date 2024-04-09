@@ -1,0 +1,63 @@
+Make Almost Equal With Mod
+
+⠀
+You are given an array 𝑎1,𝑎2,…,𝑎𝑛 of distinct positive integers. You have to do the following operation exactly once:
+
+choose a positive integer 𝑘;
+for each 𝑖 from 1 to 𝑛, replace 𝑎𝑖 with 𝑎𝑖 mod 𝑘†.
+Find a value of 𝑘 such that 1≤𝑘≤1018 and the array 𝑎1,𝑎2,…,𝑎𝑛 contains exactly 2 distinct values at the end of the operation. It can be shown that, under the constraints of the problem, at least one such 𝑘 always exists. If there are multiple solutions, you can print any of them.
+
+† 𝑎 mod 𝑏 denotes the remainder after dividing 𝑎 by 𝑏. For example:
+
+7 mod 3=1 since 7=3⋅2+1
+15 mod 4=3 since 15=4⋅3+3
+21 mod 1=0 since 21=21⋅1+0
+Input
+Each test contains multiple test cases. The first line contains the number of test cases 𝑡 (1≤𝑡≤500). The description of the test cases follows.
+
+The first line of each test case contains a single integer 𝑛 (2≤𝑛≤100) — the length of the array 𝑎.
+
+The second line of each test case contains 𝑛 integers 𝑎1,𝑎2,…,𝑎𝑛 (1≤𝑎𝑖≤1017) — the initial state of the array. It is guaranteed that all the 𝑎𝑖 are distinct.
+
+Note that there are no constraints on the sum of 𝑛 over all test cases.
+
+Output
+For each test case, output a single integer: a value of 𝑘 (1≤𝑘≤1018) such that the array 𝑎1,𝑎2,…,𝑎𝑛 contains exactly 2 distinct values at the end of the operation.
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int main() {
+
+    int t;
+    cin>>t;
+    while(t--){
+        int n;
+        cin>>n;
+
+        vector<long long> vc(n);
+
+        for(int i=0; i<n; i++){
+            cin>>vc[i];
+        }
+
+        long long res = 2;
+
+        while(1){
+            set<long long> s;
+            for(int i=0; i<n; i++){
+                s.insert(vc[i] % res);
+            }
+
+            if(s.size() == 2){
+                break;
+            }
+            res = res << 1;
+        }
+        cout<<res<<endl;
+    }
+
+    return 0;
+    
+}

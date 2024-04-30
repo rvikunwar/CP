@@ -1,0 +1,82 @@
+Trie
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+class Trie {
+	public:
+		const static int N =  26;
+		const static char baseChar = 'a';
+
+		struct TrieNode {
+			vector<TrieNode*> links;
+			bool isEnd = false;
+
+			TrieNode() {
+				links.resize(N);
+			}
+
+			bool containsKey(char ch) {
+				return links[ch - baseChar] != nullptr;
+			}
+
+			void put(char ch, TrieNode* node) {
+				links[ch - baseChar] = node;
+			}
+
+			TrieNode* get(char ch) {
+				return links[ch - baseChar];
+			}
+
+			bool setEnd(){
+				isEnd = true;
+			}
+
+			bool isEndValue(){
+				return isEnd == true;
+			}
+		};
+
+		TrieNode* root = new TrieNode();
+
+		void insert(string &word){
+			TrieNode* node = root;
+
+			for(int i=0; i<word.size(); i++){
+				if(!node->containsKey(word[i])){
+					node->put(word[i], new TrieNode());
+				}
+				node = node->get(word[i]);
+			}
+
+			node->setEnd();
+		}
+
+		bool search(string &word) {
+			TrieNode* node = root;
+
+			for(int i=0; i<word.size(); i++){
+				if(!node->containsKey(word[i])){
+					return false;
+				}
+				node = node->get(word[i]);
+			}
+
+			return node->isEndValue();
+		}
+
+		bool startsWith(string &prefix) {
+			TrieNode* node = root;
+
+			for(int i=0; i<prefix.size(); i++){
+				if(!node->containsKey(prefix[i])){
+					return false;
+				}
+				node = node->get(prefix[i]);
+			}
+
+			return true;
+		}
+};

@@ -21,10 +21,10 @@ int main() {
 		n = ceil(n);
 
 		int left = n*(n+1)/2 - x;
-		if(left != 0) {
-			cout<<n<<endl;
-		} else {
+		if(left == 1) {
 			cout<<n+1<<endl;
+		} else {
+			cout<<n<<endl;
 		}
 	}
 	return 0;

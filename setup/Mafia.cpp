@@ -15,6 +15,9 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+bool gamesCanBePlayed(int ans, vector<int> games) {
+
+}
   
 int main() {
 	int n;
@@ -25,7 +28,7 @@ int main() {
 	}
 
 	int low = 0;
-	int high =  INT_MAX;
+	int high = INT_MAX;
 	int ans;
 	while(low <= high) {
 		int mid = low + (high - low)/2;

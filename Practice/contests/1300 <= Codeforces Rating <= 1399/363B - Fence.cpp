@@ -16,12 +16,13 @@ int main() {
 
 	int i=0, j=0;
 	int height = 0;
-	int max_height = 0;
+	int min_height = INT_MAX;
 	int ans;
 	while(j<n) {
 		if(j-i+1 == k) {
 			height += vc[j];
-			if(height > max_height) {
+			if(height < min_height) {
+				min_height = height;
 				ans = i;
 			}
 			j++;
@@ -33,7 +34,7 @@ int main() {
 		}
 	}
 
-	cout<<ans<<endl;
+	cout<<ans+1<<endl;
 
 	return 0;
 }

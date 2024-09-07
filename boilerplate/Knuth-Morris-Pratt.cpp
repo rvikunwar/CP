@@ -38,10 +38,10 @@ void KMPSearch(const string& text, const string& pattern) {
 			j++;
 		}
 
-		if(j == m-1) {
+		if(j == m) {
 			cout<<i - j<<endl;
 			j = lps[j-1];
-		} else if(i < n && pattern[j] != pattern[i]) {
+		} else if(i < n && pattern[j] != text[i]) {
 			if(j != 0) {
 				j = lps[j-1];
 			} else {

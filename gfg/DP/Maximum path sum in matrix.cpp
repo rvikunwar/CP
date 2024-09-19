@@ -1,4 +1,4 @@
-// Maximum path sum in matrix.cpp
+// Maximum path sum in matrix.cpp1
 // https://www.geeksforgeeks.org/problems/path-in-matrix3805/1?page=1&sortBy=submissions
 
 int row[] = {1, 1, 1};

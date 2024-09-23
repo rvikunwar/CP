@@ -17,7 +17,7 @@ int main() {
 			int r;
 			cin>>l>>r;
 			vc[l]++;
-			vc[r+1]--;
+			vc[r]++;
 		}
 
 		vector<ll> pre_vc(n+2,0);
@@ -34,18 +34,18 @@ int main() {
 		int u = 0;
 		while(j <= n) {
 			if(j - i + 1 == d) {
-				u += (vc[i] > 0? vc[j] + pre_vc[j-1]: pre_vc[j]);
+				u += (vc[j] > 0? vc[j] + pre_vc[j-1]: pre_vc[j]);
 				ll maxi_ = u;
 				if(maxi_ > maxi) {
 					first_ans = i;
 					maxi = maxi_;
 				}
 
-				u -= (vc[i] > 0? vc[j] + pre_vc[j-1]: pre_vc[j]);
+				u -= (vc[j] > 0? vc[j] + pre_vc[j-1]: pre_vc[j]);
 				j++;
 				i++;
 			} else {
-				u += (vc[i] > 0? vc[j] + pre_vc[j-1]: pre_vc[j]);
+				u += (vc[j] > 0? vc[j] + pre_vc[j-1]: pre_vc[j]);
 				j++;
 			}
 		}
@@ -57,17 +57,17 @@ int main() {
 		j = 1;
 		while(j <= n) {
 			if(j - i + 1 == d) {
-				u += (vc[i] > 0? vc[j] + pre_vc[j-1]: pre_vc[j]);
+				u += (vc[j] > 0? vc[j] + pre_vc[j-1]: pre_vc[j]);
 				ll mini_ = u;
 				if(mini_ < mini) {
 					second_ans = i;
 					mini = mini_;
 				}
-				u -= (vc[i] > 0? vc[j] + pre_vc[j-1]: pre_vc[j]);
+				u -= (vc[j] > 0? vc[j] + pre_vc[j-1]: pre_vc[j]);
 				j++;
 				i++;
 			} else {
-				u += (vc[i] > 0? vc[j] + pre_vc[j-1]: pre_vc[j]);
+				u += ()vc[j];
 				j++;
 			}
 		}

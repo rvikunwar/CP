@@ -9,7 +9,7 @@ int main() {
 	int n;
 	cin>>n;
 	int count = 0;
-	unordered_map<int, int> mp;
+	map<int, int> mp;
 	vector<int> vc(n, 0);
 	for(int i=0; i<n; i++) {
 		cin>>vc[i];

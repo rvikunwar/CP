@@ -3,8 +3,8 @@ typedef long long ll;
 
 const int MOD = 1e9 + 7;
 
-long long mod_pow(long long base, long long exp, long long mod) {
-    long long result = 1;
+ll mod_pow(ll base, ll exp, ll mod) {
+    ll result = 1;
     while (exp > 0) {
         if (exp % 2 == 1) {  // If exp is odd
             result = (result * base) % mod;
@@ -15,7 +15,7 @@ long long mod_pow(long long base, long long exp, long long mod) {
     return result;
 }
 
-long long mod_div(long long p, long long q, long long mod) {
-    long long q_inv = mod_pow(q, mod - 2, mod);
+ll mod_div(ll p, ll q, ll mod) {
+    ll q_inv = mod_pow(q, mod - 2, mod);
     return (p * q_inv) % mod;
 }
